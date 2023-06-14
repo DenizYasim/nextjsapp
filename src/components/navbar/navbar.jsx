@@ -3,6 +3,7 @@
 import Link from "next/link";
 import React from "react";
 import styles from "./navbar.module.css";
+import ToggleDarkMode from "../ToggleDarkMode/ToggleDarkMode";
 
 const links = [
   {
@@ -44,6 +45,7 @@ const Navbar = () => {
         OmegaCringe
       </Link>
       <div className={styles.links}>
+        <ToggleDarkMode />
         {links.map((link) => (
           <Link href={link.url} key={link.id} className={styles.link}>
             {link.title}
