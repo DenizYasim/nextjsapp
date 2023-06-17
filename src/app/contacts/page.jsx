@@ -3,6 +3,11 @@ import styles from "./page.module.css";
 import Button from "@/components/Button/Button";
 import Image from "next/image";
 
+export const metadata = {
+  title: "GigaOmega Contacts",
+  description: "Wow you're so contacted",
+};
+
 const Contact = () => {
   return (
     <div className={styles.contact}>

@@ -4,7 +4,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 
 async function getData(id) {
-  const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
+  const res = await fetch(`http://localhost:3000/api/posts/${id}`);
 
   if (!res.ok) {
     return notFound();
@@ -13,51 +13,40 @@ async function getData(id) {
   return res.json();
 }
 
+export async function generateMetadata({ params }) {
+  const post = await getData(params.id);
+  return {
+    title: post.title,
+    description: post.desc,
+  };
+}
+
 const BlogPost = async ({ params }) => {
   const data = await getData(params.id);
 
-  console.log(data);
   return (
     <div className={styles.container}>
       <div className={styles.top}>
         <div className={styles.info}>
           <h1 className={styles.title}>{data.title}</h1>
-          <p className={styles.desc}>{data.body}</p>
+          <p className={styles.desc}>{data.desc}</p>
           <div className={styles.author}>
             <Image
-              src={""}
+              src={data.img}
               alt=""
               width={40}
               height={40}
               className={styles.avatar}
             />
-            <span className={styles.username}></span>
+            <span className={styles.username}>{data.username}</span>
           </div>
         </div>
         <div className={styles.imgContainer}>
-          <Image
-            className={styles.img}
-            fill={true}
-            src="https://images.pexels.com/photos/16353919/pexels-photo-16353919/free-photo-of-fontanna-di-trevi-in-rome-italy.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            alt=""
-          />
+          <Image className={styles.img} fill={true} src={data.img} alt="" />
         </div>
       </div>
       <div className={styles.content}>
-        <p className={styles.text}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos
-          earum porro ex nisi! Excepturi magnam suscipit labore vitae? Veritatis
-          magni hic, voluptate eaque eius minima consequatur laudantium, iure
-          quos facere excepturi recusandae minus sapiente explicabo ipsum
-          laboriosam. Quidem, totam! Temporibus dignissimos qui ab, dolorem
-          asperiores laborum itaque aperiam dolor numquam culpa hic, quod
-          ducimus deleniti corporis aspernatur vitae ipsam! Eum odio libero
-          doloribus veritatis, aliquam expedita tempore ullam, adipisci officiis
-          molestias sapiente incidunt. Ipsa quos excepturi maiores a quidem esse
-          est suscipit saepe repudiandae error vero officiis ad impedit
-          provident blanditiis quam tempore iure cumque, distinctio id magnam?
-          Ex, qui.
-        </p>
+        <p className={styles.text}>{data.content}</p>
       </div>
     </div>
   );
