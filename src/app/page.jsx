@@ -14,7 +14,7 @@ export default function Home() {
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque totam
           aut qui dolor inventore eum!
         </p>
-        <Button url="/porfolio" text="See our Works"></Button>
+        <Button url="/portfolio" text="See our Works"></Button>
       </div>
       <div className={styles.item}></div>
       <Image src={Hero} alt="" className={styles.img} />
